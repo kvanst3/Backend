@@ -1,4 +1,5 @@
 import random
+from os import system
 from random_word import RandomWords
 r = RandomWords()
 
@@ -102,6 +103,7 @@ while keep_playing:
     while lives > 0:
         try:
             guessed_letter = input("Guess a letter:\n").lower()[0]
+            system('clear')
         except Exception as e:
             print("Invalid input")
             print(type(e))
