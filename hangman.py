@@ -110,7 +110,6 @@ while keep_playing:
             letters_guessed += guessed_letter
             lives = check_matches(word, guessed_word, guessed_letter, lives)
             print(' '.join(guessed_word))
-            print(f"remaining lives: {lives}")
             print(stages[lives])
             print(f"attempted letters: {letters_guessed}")
             if check_success(guessed_word):
