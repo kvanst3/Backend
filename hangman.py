@@ -38,7 +38,7 @@ while keep_playing:
     letters_guessed = []
     print("let's play hangman! Generating new set of words...")
     word = gen_word()
-    print(word)
+    # print(word)
     guessed_word = display_guess(word)
     print(' '.join(guessed_word))
 
