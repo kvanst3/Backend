@@ -32,9 +32,66 @@ def check_success(guessed_word):
         return True
 
 
+stages = ['''
+  +---+
+  |   |
+  O   |
+ /|\  |
+ / \  |
+      |
+=========
+''', '''
+  +---+
+  |   |
+  O   |
+ /|\  |
+ /    |
+      |
+=========
+''', '''
+  +---+
+  |   |
+  O   |
+ /|\  |
+      |
+      |
+=========
+''', '''
+  +---+
+  |   |
+  O   |
+ /|   |
+      |
+      |
+=========''', '''
+  +---+
+  |   |
+  O   |
+  |   |
+      |
+      |
+=========
+''', '''
+  +---+
+  |   |
+  O   |
+      |
+      |
+      |
+=========
+''', '''
+  +---+
+  |   |
+      |
+      |
+      |
+      |
+=========
+''']
+
 keep_playing = True
 while keep_playing:
-    lives = 5
+    lives = 6
     letters_guessed = []
     print("let's play hangman! Generating new set of words...")
     word = gen_word()
@@ -54,12 +111,13 @@ while keep_playing:
             lives = check_matches(word, guessed_word, guessed_letter, lives)
             print(' '.join(guessed_word))
             print(f"remaining lives: {lives}")
+            print(stages[lives])
             print(f"attempted letters: {letters_guessed}")
             if check_success(guessed_word):
                 print("congratulation! You Win!\n")
                 break
             elif lives <= 0:
-                print("Sorry, you ran out of lives! You Lose!")
+                print(f"Sorry, you ran out of lives! You Lose!\nThe word was: {word}")
         else:
             print("You've already tried that. Try another one!")
 
