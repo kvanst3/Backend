@@ -8,7 +8,7 @@ shift = int(input("Type the shift number:\n"))
 result = []
 
 
-def encrypt(text):
+def encrypt(text, shift):
     for letter in text:
         if letter in alphabet:
             letter_position = alphabet.index(letter)
@@ -23,7 +23,7 @@ def encrypt(text):
     return result
 
 
-def decrypt(text):
+def decrypt(text, shift):
     for letter in text:
         if letter in alphabet:
             letter_position = alphabet.index(letter)
@@ -34,8 +34,8 @@ def decrypt(text):
 
 
 if direction == 'encode':
-    print(''.join(encrypt(text)))
+    print(''.join(encrypt(text, shift)))
 elif direction == 'decode':
-    print(''.join(decrypt(text)))
+    print(''.join(decrypt(text, shift)))
 else:
     print('input error')
