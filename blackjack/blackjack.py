@@ -14,8 +14,9 @@ def deal_card(deck, player):
     player.append(card)
     if len(player) > 2:
         print(f"{pronoun} a {card[0]}...\n")
-        print(f"Current score: {check_score(player)}\n")
-        if check_score(player) > 21:
+        score = check_score(player)
+        print(f"Current score: {score}\n")
+        if score > 21:
             return False
 
 
