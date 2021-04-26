@@ -44,7 +44,7 @@ def check_score(player_cards):
 def dealer_time(dealer_cards, player_cards, deck):
     print("The dealer is revealing her hand")
     [slow_output('.') for _ in range(3)]
-    print (f"\nDealer hand: {current_cards(dealer_cards)}")
+    print(f"\nDealer hand: {current_cards(dealer_cards)}")
     dealer_score = check_score(dealer_cards)
     player_score = check_score(player_cards)
     while dealer_score < player_score:
