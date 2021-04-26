@@ -1,52 +1,44 @@
 import random
 
 
-def check_guess(num, guess):
+def check_guess(num, guess, remaining_lives):
     if guess > num:
-        return 1
+        print("Too high.")
+        return remaining_lives - 1
     elif guess < num:
-        return 2
+        print("Too low.")
+        return remaining_lives - 1
     else:
-        return 3
+        print(f"You got it! The answer was {num}.")
+        return num
 
 
-def lives(level, lives):
+def lives(level):
     if level == 'easy':
-        return lives + 10
+        return 10
     elif level == 'hard':
-        return lives + 5
+        return 5
 
 
 def game_on():
     print("Welcome to the Number Guessing Game!")
     print("I'm thinking of a number between 1 and 100.")
-
     num = random.choice(range(1, 101))
 
     try:
         level = input("Chose a difficulty. type 'easy' or 'hard': ")
-        remaining_lives = 0
-        remaining_lives = lives(level, remaining_lives)
+        remaining_lives = lives(level)
+        guess = 0
 
-        while remaining_lives > 0:
+        while remaining_lives > 0 and guess is not num:
             print(f"You have {remaining_lives} attempts remaining to guess the number.")
 
             try:
                 guess = int(input("Take a guess: "))
-                hint = check_guess(num, guess)
+                remaining_lives = check_guess(num, guess, remaining_lives)
             except Exception:
                 print("Invalid input.")
                 continue
-
-            if hint == 1:
-                print("Too high.")
-                remaining_lives -= 1
-            elif hint == 2:
-                print("Too low.")
-                remaining_lives -= 1
-            else:
-                print(f"You got it! The answer was {num}.")
-                break
 
         if remaining_lives <= 0:
             print(f"Sorry, you lose... The answer was: {num}")
