@@ -16,8 +16,8 @@ def PowerOn():
         if drink is not None:
             if coffee_maker.is_resource_sufficient(drink):
                 print("$", drink.cost)
-                money_machine.make_payment(drink.cost)
-                coffee_maker.make_coffee(drink)
+                if money_machine.make_payment(drink.cost):
+                    coffee_maker.make_coffee(drink)
     PowerOn()
 
 
