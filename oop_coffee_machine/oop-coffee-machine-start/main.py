@@ -9,7 +9,6 @@ def PowerOn():
         if order == "report":
             coffee_maker.report()
             money_machine.report()
-            PowerOn()
         else:
             return
     else:
@@ -19,11 +18,7 @@ def PowerOn():
                 print("$", drink.cost)
                 money_machine.make_payment(drink.cost)
                 coffee_maker.make_coffee(drink)
-                PowerOn()
-            else:
-                PowerOn()
-        else:
-            PowerOn()
+    PowerOn()
 
 
 menu = Menu()
