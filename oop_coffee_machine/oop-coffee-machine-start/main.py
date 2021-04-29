@@ -20,6 +20,8 @@ def PowerOn():
                 money_machine.make_payment(drink.cost)
                 coffee_maker.make_coffee(drink)
                 PowerOn()
+            else:
+                PowerOn()
         else:
             PowerOn()
 
