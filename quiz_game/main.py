@@ -12,7 +12,7 @@ for question in question_data:
 quiz = Quiz(question_bank)
 
 
-while quiz.question_number < 12:
+while quiz.question_number < len(question_bank):
     quiz.ask_question()
 
 print(f"Your Final Score is: {quiz.right_answers}/12")
