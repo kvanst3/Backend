@@ -22,7 +22,4 @@ class Quiz():
             print("Batsu...\n")
 
     def still_has_question(self):
-        if self.question_number < len(self.question_bank):
-            return True
-        else:
-            return False
+        return self.question_number < len(self.question_bank)
