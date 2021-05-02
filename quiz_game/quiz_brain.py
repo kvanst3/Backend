@@ -9,12 +9,11 @@ class Quiz():
     def ask_question(self):
         question = self.question_bank[self.question_number]
         print(f"Current Score: {self.right_answers}/{self.question_number}")
-        self.user_answer = True if input(f"Q.{self.question_number + 1}: {question.q_text} (True/False)") == 't' else False
-        self.check_answer()
         self.question_number += 1
+        self.user_answer = True if input(f"Q.{self.question_number}: {question.q_text} (True/False)") == 't' else False
+        self.check_answer(question)
 
-    def check_answer(self):
-        question = self.question_bank[self.question_number]
+    def check_answer(self, question):
         if question.q_answer == str(self.user_answer):
             self.right_answers += 1
             print("Seikou!\n")
