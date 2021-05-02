@@ -13,7 +13,6 @@ quiz = Quiz(question_bank)
 
 
 while quiz.question_number < 12:
-    print(f"Current Score: {quiz.right_answers}/{quiz.question_number}")
     quiz.ask_question()
 
 print(f"Your Final Score is: {quiz.right_answers}/12")

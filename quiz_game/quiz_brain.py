@@ -8,7 +8,8 @@ class Quiz():
 
     def ask_question(self):
         question = self.question_bank[self.question_number]
-        self.user_answer = True if input(question.q_text) == 't' else False
+        print(f"Current Score: {self.right_answers}/{self.question_number}")
+        self.user_answer = True if input(f"Q.{self.question_number + 1}: {question.q_text}") == 't' else False
         self.check_answer()
         self.question_number += 1
 
