@@ -17,9 +17,10 @@ def dash_line(turtle, dash_frequency, total_length):
 
 
 def generate_rgb():
-    colors = range(1, 100)
-    color = random.choice(colors)
-    return color / 100
+    r = random.randint(1, 100) / 100
+    g = random.randint(1, 100) / 100
+    b = random.randint(1, 100) / 100
+    return (r, g, b)
 
 
 timmy = Turtle()
@@ -39,16 +40,28 @@ timmy.pencolor(0.1, 0.70, 0.12)
 #     dash_line(timmy, 10, 200)
 #     timmy.left(90)
 
-angles = 3
-for _ in range(8):
-    timmy.pencolor(generate_rgb(), generate_rgb(), generate_rgb())
-    degree = 360/angles
-    timmy.seth(180 - degree)
-    for _ in range(angles):
-        timmy.forward(100)
-        timmy.right(degree)
-    angles += 1
+###Timmy draws increasingly complex figures.###
+ 
+# angles = 3
+# for _ in range(8):
+#     timmy.pencolor(generate_rgb(), generate_rgb(), generate_rgb())
+#     degree = 360/angles
+#     timmy.seth(180 - degree)
+#     for _ in range(angles):
+#         timmy.forward(100)
+#         timmy.right(degree)
+#     angles += 1
 
+
+### Random Walk###
+orientation = [90, 180, 270, 360]
+
+for _ in range(250):
+    timmy.pencolor(generate_rgb())
+    timmy.pensize(10)
+    timmy.speed(10)
+    timmy.seth(random.choice(orientation))
+    timmy.forward(30)
 
 
 screen = Screen()
