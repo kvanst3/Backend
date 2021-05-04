@@ -1,6 +1,7 @@
 from turtle import Turtle, Screen
 from math import floor
 import random
+import colorgram
 
 
 def dash_line(turtle, dash_frequency, total_length):
@@ -65,13 +66,42 @@ timmy.pencolor(0.1, 0.70, 0.12)
 
 
 ###Spirograph###
-timmy.speed(0)
+# timmy.speed(0)
 
-for _ in range(int(360/5)):
-    timmy.pencolor(generate_rgb())
-    timmy.circle(100)
-    timmy.left(5)
+# for _ in range(int(360/5)):
+#     timmy.pencolor(generate_rgb())
+#     timmy.circle(100)
+#     timmy.left(5)
+
+
+###Hirst painting###
+
+
+colors = colorgram.extract('turtle/image.jpg', 25)
+color_palette = []
+for i in colors:
+    color_palette.append((i.rgb.r, i.rgb.g, i.rgb.b))
+
+color_palette.pop(0)
+color_palette.pop(0)
+
+print(color_palette)
 
 
 screen = Screen()
+screen.colormode(255)
+
+timmy.penup()
+
+position = [-250.00, -250.00]
+
+for _ in range(10):
+    timmy.goto(position)
+    position = [position[0], position[1] + 50]
+    for _ in range(10):
+        timmy.dot(20, random.choice(color_palette))
+        timmy.forward(50)
+        
+
+
 screen.exitonclick()
