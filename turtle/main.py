@@ -54,14 +54,23 @@ timmy.pencolor(0.1, 0.70, 0.12)
 
 
 ### Random Walk###
-orientation = [90, 180, 270, 360]
+# orientation = [90, 180, 270, 360]
 
-for _ in range(250):
+# for _ in range(250):
+#     timmy.pencolor(generate_rgb())
+#     timmy.pensize(10)
+#     timmy.speed(10)
+#     timmy.seth(random.choice(orientation))
+#     timmy.forward(30)
+
+
+###Spirograph###
+timmy.speed(0)
+
+for _ in range(int(360/5)):
     timmy.pencolor(generate_rgb())
-    timmy.pensize(10)
-    timmy.speed(10)
-    timmy.seth(random.choice(orientation))
-    timmy.forward(30)
+    timmy.circle(100)
+    timmy.left(5)
 
 
 screen = Screen()
