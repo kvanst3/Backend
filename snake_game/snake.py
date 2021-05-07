@@ -15,7 +15,10 @@ class Snake:
         segment.shapesize(stretch_wid=0.5, stretch_len=0.5, outline=0)
         segment.color("white")
         if len(self.segments) > 0:
-            segment.goto(self.segments[-1].xcor() - 11, self.segments[-1].ycor())
+            if self.segments[0].heading() == 90 or self.segments[0].heading() == 270:
+                segment.goto(self.segments[-1].xcor(), self.segments[-1].ycor() - 11)
+            else:
+                segment.goto(self.segments[-1].xcor() - 11, self.segments[-1].ycor())
         self.segments.append(segment)
 
     def generate_snake(self):
