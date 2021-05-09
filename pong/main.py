@@ -22,8 +22,15 @@ screen.onkey(player2.move_down, "Down")
 game_on = True
 while game_on:
     screen.update()
-    ball.move()
     time.sleep(.06)
+    ball.move()
+
+    # Detect collision with wall
+    if ball.ycor() > 285 or ball.ycor() < -285:
+        ball.bounce()
+        
+    
+        
 
 
 screen.exitonclick()
