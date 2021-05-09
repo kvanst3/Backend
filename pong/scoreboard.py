@@ -1,6 +1,6 @@
 from turtle import Turtle
 ALIGNMENT = "center"
-FONT1 = ("Arial", 18, "normal")
+FONT1 = ("Arial", 22, "normal")
 FONT2 = ("Arial", 28, "normal")
 
 
@@ -8,7 +8,7 @@ class ScoreBoard(Turtle):
 
     def __init__(self):
         super().__init__()
-        self.goto(0, 265)
+        self.goto(0, 250)
         self.ht()
         self.penup()
         self.player1 = 0
@@ -17,7 +17,7 @@ class ScoreBoard(Turtle):
         self.update_scoreboard()
 
     def update_scoreboard(self):
-        self.write(f"Player1: {self.player1}\tPlayer2: {self.player2}", align=ALIGNMENT, font=FONT1)
+        self.write(f"{self.player1}\t\t{self.player2}", align=ALIGNMENT, font=FONT1)
 
     def increase_score(self, player):
         if player == "p1":

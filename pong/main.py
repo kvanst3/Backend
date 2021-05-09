@@ -25,7 +25,7 @@ while scoreboard.player1 + scoreboard.player2 < 5:
     game_on = True
     while game_on:
         screen.update()
-        time.sleep(.02)
+        time.sleep(ball.move_speed)
         ball.move()
 
         # Detect collision with wall
