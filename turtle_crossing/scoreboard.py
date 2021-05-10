@@ -33,7 +33,7 @@ class Scoreboard(Turtle):
             screen.update()
             time.sleep(0.3)
 
-    def win(self):
+    def end(self, cond):
         self.clear()
         self.goto(0, 0)
-        self.write("You Win!", align=ALIGNMENT2, font=FONT2)
+        self.write(f"You {cond}!", align=ALIGNMENT2, font=FONT2)

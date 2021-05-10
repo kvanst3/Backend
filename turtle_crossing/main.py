@@ -34,9 +34,16 @@ while game_on:
             car_manager.increase_cars()
         else:
             screen.clear()
-            scoreboard.win()
+            scoreboard.end("Win")
             screen.update()
             game_on = False
+    else:
+        for car in car_manager.cars:
+            if player.distance(car) < 15:
+                screen.clear()
+                scoreboard.end("Lose")
+                screen.update()
+                game_on = False
 
 
 
