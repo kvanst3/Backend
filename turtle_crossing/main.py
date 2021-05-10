@@ -2,12 +2,8 @@ from turtle import Screen
 from player import Player
 from scoreboard import Scoreboard
 from car import Car
-
-
-def car_move():
-    car.move_forward()
-    screen.ontimer(car_move, 250)
-
+import time
+        
 
 screen = Screen()
 screen.tracer(0)
@@ -17,19 +13,21 @@ screen.title("Turtle Crossing")
 player = Player()
 screen.listen()
 scoreboard = Scoreboard()
-car = Car()
+car_manager = Car()
 
 
-car_move()
 game_on = True
 while game_on:
+    time.sleep(0.01)
     screen.update()
-    screen.onkey(player.move_forward, "w")
+    screen.onkey(player.move_forward, "Up")
+    car_manager.create_car()
+    car_manager.move_cars()
     if player.ycor() >= 280:
         player.reset_pos()
-        screen.onkey(None, "w")
+        screen.onkey(None, "Up")
         scoreboard.increase_level(screen)
-        #increase car speed
+        car_manager.increase_cars()
 
 
 
