@@ -23,8 +23,14 @@ class Car():
 
     def move_cars(self):
         for car in self.cars:
-            car.forward(2)
+            if car.xcor() < 320:
+                car.forward(2)
+            else:
+                self.remove_car(car)
 
     def increase_cars(self):
         if self.generation_chance > 5:
             self.generation_chance -= 5
+
+    def remove_car(self, car):
+        self.cars.remove(car)
