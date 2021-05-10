@@ -26,10 +26,17 @@ while game_on:
     car_manager.move_cars()
     if player.ycor() >= 280:
         player.reset_pos()
+        # prevent player movement while score flashes and turtle resets
         screen.onkey(None, "Up")
         screen.onkey(None, "Down")
-        scoreboard.increase_level(screen)
-        car_manager.increase_cars()
+        if scoreboard.level < 10:
+            scoreboard.increase_level(screen)
+            car_manager.increase_cars()
+        else:
+            screen.clear()
+            scoreboard.win()
+            screen.update()
+            game_on = False
 
 
 
