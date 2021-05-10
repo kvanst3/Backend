@@ -21,11 +21,13 @@ while game_on:
     time.sleep(0.01)
     screen.update()
     screen.onkey(player.move_forward, "Up")
+    screen.onkey(player.move_backward, "Down")
     car_manager.create_car()
     car_manager.move_cars()
     if player.ycor() >= 280:
         player.reset_pos()
         screen.onkey(None, "Up")
+        screen.onkey(None, "Down")
         scoreboard.increase_level(screen)
         car_manager.increase_cars()
 
