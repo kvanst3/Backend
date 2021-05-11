@@ -36,3 +36,10 @@ class Snake:
 
     def turn_right(self):
         self.head.right(90)
+
+    def reset(self):
+        for seg in self.segments:
+            seg.ht()
+        self.segments.clear()
+        self.generate_snake()
+        self.head = self.segments[0]
