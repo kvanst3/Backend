@@ -15,3 +15,9 @@
 #             temps.append(int(row[1]))
 
 # print(temps)
+
+import pandas
+
+data = pandas.read_csv("csv_playground/weather_data.csv")
+print(data)
+print(data["temp"])
