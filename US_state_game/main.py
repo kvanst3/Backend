@@ -18,7 +18,7 @@ while game_on:
     answer = screen.textinput(title="Guess the state", prompt="What's another state's name?").title()
     if answer in states:
         row = data[data.state == answer]
-        State(row.state.values[0], row.x, row.y)
+        State(row.state.item(), row.x, row.y)
         data = data.drop(row.index)
         scoreboard.increase_score()
     if scoreboard.score >= 50:
