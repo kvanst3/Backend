@@ -12,10 +12,11 @@ turtle.shape(image)
 scoreboard = Scoreboard()
 
 data = pandas.read_csv("US_state_game/50_states.csv")
+states = data.state.to_list()
 game_on = True
 while game_on:
     answer = screen.textinput(title="Guess the state", prompt="What's another state's name?").title()
-    if answer in data.state.values:
+    if answer in states:
         row = data[data.state == answer]
         State(row.state.values[0], row.x, row.y)
         data = data.drop(row.index)
