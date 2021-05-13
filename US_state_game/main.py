@@ -21,9 +21,12 @@ while game_on:
         State(row.state.item(), row.x, row.y)
         data = data.drop(row.index)
         scoreboard.increase_score()
-    if scoreboard.score >= 50:
-        screen.clear()
-        scoreboard.game_over()
+        if scoreboard.score >= 50:
+            screen.clear()
+            scoreboard.game_over()
+            game_on = False
+    elif answer == "Exit":
+        data.state.to_csv("US_state_game/missed_answers.csv")
         game_on = False
 
 
