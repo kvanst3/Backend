@@ -1,36 +1,3 @@
-# import tkinter
-
-# window = tkinter.Tk()
-# window.title("First GUI")
-# window.minsize(width=600, height=400)
-
-# # Label
-
-# label = tkinter.Label(text="new text here", font=("Arial", 24, 'bold'))
-# label.pack()
-# label["text"] = "another text"
-# label.config(text="yet another one")
-
-# # Button
-
-
-# def click_button():
-#     usr_input = input_field.get()
-#     label.config(text=usr_input)
-
-
-# button = tkinter.Button(text="click here", command=click_button)
-# button.pack()
-
-# # Entry
-
-# input_field = tkinter.Entry(width=10)
-# input_field.pack()
-
-
-
-# window.mainloop()
-
 from tkinter import *
 
 #Creating a new window and configurations
