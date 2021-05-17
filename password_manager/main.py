@@ -61,8 +61,14 @@ def save_password():
         except FileNotFoundError:
             write_json(json_data)
         else:
-            data.update(json_data)
-            write_json(data)
+            if data[web]:
+                update = messagebox.askyesno(title="WARNING!", message="You already have a password for this website.\nAre you sure you want to update the password?")
+                if update:
+                    data.update(json_data)
+                    write_json(data)
+            else:
+                data.update(json_data)
+                write_json(data)
         finally:
             website_entry.delete(0, END)
             password_entry.delete(0, END)
