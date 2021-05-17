@@ -1,21 +1,21 @@
-student_dict = {
-    "student": ["Angela", "James", "Lily"], 
-    "score": [56, 76, 98]
-}
+# student_dict = {
+#     "student": ["Angela", "James", "Lily"], 
+#     "score": [56, 76, 98]
+# }
 
-#Looping through dictionaries:
-for (key, value) in student_dict.items():
-    #Access key and value
-    pass
+# #Looping through dictionaries:
+# for (key, value) in student_dict.items():
+#     #Access key and value
+#     pass
 
 import pandas
-student_data_frame = pandas.DataFrame(student_dict)
+# student_data_frame = pandas.DataFrame(student_dict)
 
-#Loop through rows of a data frame
-for (index, row) in student_data_frame.iterrows():
-    #Access index and row
-    #Access row.student or row.score
-    pass
+# #Loop through rows of a data frame
+# for (index, row) in student_data_frame.iterrows():
+#     #Access index and row
+#     #Access row.student or row.score
+#     pass
 
 # Keyword Method with iterrows()
 # {new_key:new_value for (index, row) in df.iterrows()}
@@ -27,7 +27,10 @@ nato_dict = {row.letter: row.code for (index, row) in df.iterrows()}
 
 
 #TODO 2. Create a list of the phonetic code words from a word that the user inputs.
-spell = input("What would you like to spell out?\n").upper()    
-result = [nato_dict[char] for char in spell]
-
-print(result)
+spell = input("What would you like to spell out?\n").upper()
+try:    
+    result = [nato_dict[char] for char in spell]
+except KeyError as e:
+    result = f"Sorry, {e} is not a letter and can't, therefore, be translated by our program.."
+finally:
+    print(result)
