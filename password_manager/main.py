@@ -63,13 +63,14 @@ def save_password():
         else:
             try:
                 data[web]
+            except KeyError:
+                data.update(json_data)
+                write_json(data)
+            else:
                 update = messagebox.askyesno(title="WARNING!", message="You already have a password for this website.\nAre you sure you want to update the password?")
                 if update:
                     data.update(json_data)
                     write_json(data)
-            except KeyError:
-                data.update(json_data)
-                write_json(data)
         finally:
             website_entry.delete(0, END)
             password_entry.delete(0, END)
