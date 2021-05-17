@@ -44,13 +44,13 @@ def generate_password():
 
 # ---------------------------- SAVE PASSWORD ------------------------------- #
 def save_password():
-    web = website_entry.get()
+    web = website_entry.get().lower()
     email = email_entry.get()
     password = password_entry.get()
     json_data = {
         web: {
-            "email": email.lower(),
-            "password": password.lower(),
+            "email": email,
+            "password": password,
         }
     }
 
