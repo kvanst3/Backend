@@ -39,8 +39,8 @@ def save_password():
     }
 
     if len(web) > 0 and len(password) > 0:
-        with open("password_manager/passwords.json", mode="w") as file:
-            json.dump(json_data, file)
+        with open("password_manager/passwords.json", mode="a") as file:
+            json.dump(json_data, file, indent=4)
 
         website_entry.delete(0, END)
         password_entry.delete(0, END)
