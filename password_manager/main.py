@@ -9,6 +9,18 @@ FONT = 10
 LETTERS = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z', 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z']
 NUMBERS = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9']
 SYMBOLS = ['!', '#', '$', '%', '&', '(', ')', '*', '+']
+# ---------------------------- JSON WRITE ------------------------------- #
+def write_json(data):
+    with open("password_manager/passwords.json", mode="w") as file:
+        json.dump(data, file, indent=4)
+# ---------------------------- SEARCH JSON ------------------------------- #
+def search_json():
+    try:
+        with open("password_manager/passwords.json") as file:
+            r = json.load(file)
+            print(r)
+    except FileNotFoundError:
+        print("You have no data")
 # ---------------------------- PASSWORD GENERATOR ------------------------------- #
 def generate_password():
     password_entry.delete(0, END)
@@ -39,8 +51,13 @@ def save_password():
     }
 
     if len(web) > 0 and len(password) > 0:
-        with open("password_manager/passwords.json", mode="a") as file:
-            json.dump(json_data, file, indent=4)
+        try:
+            with open("password_manager/passwords.json", mode="r") as file:
+                data = json.load(file)
+                data.update(json_data)
+                write_json(data)
+        except FileNotFoundError:
+            write_json(json_data)
 
         website_entry.delete(0, END)
         password_entry.delete(0, END)
@@ -71,8 +88,8 @@ fake_label = Label(text=" ", bg="white", pady=5, font=("Arial", FONT))
 fake_label.grid(column=0, row=4)
 
 # Entries
-website_entry = Entry(width=36)
-website_entry.grid(column=1, row=1, columnspan=2)
+website_entry = Entry(width=24)
+website_entry.grid(column=1, row=1)
 website_entry.focus()
 
 email_entry = Entry(width=36)
@@ -83,6 +100,9 @@ password_entry = Entry(width=24)
 password_entry.grid(column=1, row=3)
 
 # Buttons
+search_button = Button(text="Search", command=search_json, bg="white", font=("Arial", FONT), width=9)
+search_button.grid(column=2, row=1)
+
 password_generation_button = Button(text="Generate", command=generate_password, bg="white", font=("Arial", FONT), width=9)
 password_generation_button.grid(column=2, row=3)
 
