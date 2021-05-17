@@ -32,13 +32,11 @@ def save_password():
     password = password_entry.get()
 
     if len(web) > 0 and len(password) > 0:
-        save_message = messagebox.askokcancel(title=web, message=f"Details:\nEmail: {email}\nPassword: {password}")
-        if save_message:
-            with open("password_manager/passwords.txt", mode="a") as file:
-                file.write(f"{web}, {email}, {password}\n")
+        with open("password_manager/passwords.txt", mode="a") as file:
+            file.write(f"{web}, {email}, {password}\n")
 
-            website_entry.delete(0, END)
-            password_entry.delete(0, END)
+        website_entry.delete(0, END)
+        password_entry.delete(0, END)
     else:
         messagebox.showerror(title="Error", message= "You need to populate all the fields before hitting Add")
 
