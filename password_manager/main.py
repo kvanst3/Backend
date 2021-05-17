@@ -58,13 +58,14 @@ def save_password():
         try:
             with open("password_manager/passwords.json", mode="r") as file:
                 data = json.load(file)
-                data.update(json_data)
-                write_json(data)
         except FileNotFoundError:
             write_json(json_data)
-
-        website_entry.delete(0, END)
-        password_entry.delete(0, END)
+        else:
+            data.update(json_data)
+            write_json(data)
+        finally:
+            website_entry.delete(0, END)
+            password_entry.delete(0, END)
     else:
         messagebox.showerror(title="Error", message= "You need to populate all the fields before hitting Add")
 
