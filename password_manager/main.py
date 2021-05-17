@@ -3,6 +3,7 @@ from tkinter import *
 from tkinter import messagebox
 from random import choice, randint, shuffle
 import pyperclip
+import json
 
 FONT = 10
 LETTERS = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z', 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z']
@@ -30,10 +31,16 @@ def save_password():
     web = website_entry.get()
     email = email_entry.get()
     password = password_entry.get()
+    json_data = {
+        web: {
+            "email": email,
+            "password": password,
+        }
+    }
 
     if len(web) > 0 and len(password) > 0:
-        with open("password_manager/passwords.txt", mode="a") as file:
-            file.write(f"{web}, {email}, {password}\n")
+        with open("password_manager/passwords.json", mode="w") as file:
+            json.dump(json_data, file)
 
         website_entry.delete(0, END)
         password_entry.delete(0, END)
