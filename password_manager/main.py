@@ -19,7 +19,7 @@ def search_json():
     try:
         with open("password_manager/passwords.json") as file:
             r = json.load(file)
-            messagebox.showinfo(title=search.capitalize(), message=f"Email: {r[search]['email']}\nPassword: {r[search]['password']}")
+            messagebox.showinfo(title=search.title(), message=f"Email: {r[search]['email']}\nPassword: {r[search]['password']}")
             pyperclip.copy(r[search]['password'])
     except FileNotFoundError:
         messagebox.showinfo(title="Error", message="You currently have no saved password.")
@@ -61,12 +61,13 @@ def save_password():
         except FileNotFoundError:
             write_json(json_data)
         else:
-            if data[web]:
+            try:
+                data[web]
                 update = messagebox.askyesno(title="WARNING!", message="You already have a password for this website.\nAre you sure you want to update the password?")
                 if update:
                     data.update(json_data)
                     write_json(data)
-            else:
+            except KeyError:
                 data.update(json_data)
                 write_json(data)
         finally:
