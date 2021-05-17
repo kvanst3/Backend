@@ -18,13 +18,16 @@ def search_json():
     search = website_entry.get().lower()
     try:
         with open("password_manager/passwords.json") as file:
-            r = json.load(file)
-            messagebox.showinfo(title=search.title(), message=f"Email: {r[search]['email']}\nPassword: {r[search]['password']}")
-            pyperclip.copy(r[search]['password'])
+            result = json.load(file)
     except FileNotFoundError:
-        messagebox.showinfo(title="Error", message="You currently have no saved password.")
-    except KeyError:
-        messagebox.showinfo(title="Error", message="No information match.")
+        messagebox.showinfo(title="Error", message=f"You currently have no saved password for {search.title()}.")
+    else:
+        if search in result:
+            messagebox.showinfo(title=search.title(), message=f"Email: {result[search]['email']}\nPassword: {result[search]['password']}")
+            pyperclip.copy(r[search]['password'])
+        else:
+            messagebox.showinfo(title="Error", message="No information match.")
+        
 # ---------------------------- PASSWORD GENERATOR ------------------------------- #
 def generate_password():
     password_entry.delete(0, END)
@@ -61,6 +64,7 @@ def save_password():
         except FileNotFoundError:
             write_json(json_data)
         else:
+            # alternatively: if web in data: yada yada yada
             try:
                 data[web]
             except KeyError:
