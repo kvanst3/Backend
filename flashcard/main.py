@@ -34,6 +34,7 @@ def remove_card():
 # ---------------------------- UPDATE CSV ------------------------------- #
 def update_csv():
     data = pandas.DataFrame(data_dict)
+    # to make this app run as intended, below file location should be the original csv file
     data.to_csv('flashcard/data/french_words_updated.csv', mode='w', header=True, index=False)
 
 # ---------------------------- ON CLOSE ------------------------------- #
