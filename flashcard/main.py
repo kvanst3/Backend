@@ -29,13 +29,8 @@ def flip_card():
     canvas.itemconfig(card_word, text=f"{ran_word['English']}", fill="white")
 # ---------------------------- REMOVE FROM DECK ------------------------------- #
 def remove_card():
-    global data
     del data_dict[data_dict.index(ran_word)]
     generate_card()
-# ---------------------------- NEXT CARD ------------------------------- #
-def next_card():
-    generate_card()
-
 # ---------------------------- UPDATE CSV ------------------------------- #
 def update_csv():
     data = pandas.DataFrame(data_dict)
@@ -68,7 +63,7 @@ green_button = Button(image=green_img, highlightthickness=0, command=remove_card
 green_button.grid(row=1, column=0)
 
 red_img = PhotoImage(file="flashcard/images/wrong.png")
-red_button = Button(image=red_img, highlightthickness=0, command=next_card)
+red_button = Button(image=red_img, highlightthickness=0, command=generate_card)
 red_button.grid(row=1, column=1)
 
 generate_card()
