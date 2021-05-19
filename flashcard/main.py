@@ -13,10 +13,13 @@ data_dict = data.to_dict('records')
 def generate_card():
     global ran_word, flip_timer
     window.after_cancel(flip_timer)
-    ran_word = choice(data_dict)
-    canvas.itemconfig(card_title, text="French", fill="black")
-    canvas.itemconfig(card_word, text=f"{ran_word['French']}", fill="black")
-    canvas.itemconfig(card_bg, image=img_front)
+    if len(data_dict) > 0:
+        ran_word = choice(data_dict)
+        canvas.itemconfig(card_title, text="French", fill="black")
+        canvas.itemconfig(card_word, text=f"{ran_word['French']}", fill="black")
+        canvas.itemconfig(card_bg, image=img_front)
+    else:
+        messagebox.showwarning(title="Congratulations!", message="You have learned all the words! Please upload new csv.")
 
     flip_timer = window.after(3000, flip_card)
 # ---------------------------- SHOW TRANSLATION ------------------------------- #
@@ -69,7 +72,6 @@ red_button = Button(image=red_img, highlightthickness=0, command=next_card)
 red_button.grid(row=1, column=1)
 
 generate_card()
-
 
 window.protocol("WM_DELETE_WINDOW", on_closing)
 window.mainloop()
