@@ -27,8 +27,8 @@ def flip_card():
 # ---------------------------- REMOVE FROM DECK ------------------------------- #
 def remove_card():
     global data
+    print(data_dict.index(ran_word))
     data = data.drop(data_dict.index(ran_word))
-    print("removing this card from deck.")
     generate_card()
 # ---------------------------- NEXT CARD ------------------------------- #
 def next_card():
@@ -36,7 +36,7 @@ def next_card():
 
 # ---------------------------- UPDATE CSV ------------------------------- #
 def update_csv():
-    pass
+    data.to_csv('flashcard/data/french_words_updated.csv', mode='w', header=True, index=False)
 
 # ---------------------------- ON CLOSE ------------------------------- #
 def on_closing():
