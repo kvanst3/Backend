@@ -29,7 +29,7 @@ def flip_card():
     canvas.itemconfig(card_word, text=f"{ran_word['English']}", fill="white")
 # ---------------------------- REMOVE FROM DECK ------------------------------- #
 def remove_card():
-    del data_dict[data_dict.index(ran_word)]
+    data_dict.remove(ran_word)
     generate_card()
 # ---------------------------- UPDATE CSV ------------------------------- #
 def update_csv():
