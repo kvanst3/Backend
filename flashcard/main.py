@@ -9,7 +9,8 @@ data_dict = data.to_dict('records')
 # ---------------------------- RANDOM WORD ------------------------------- #
 def generate_word():
     ran_word = choice(data_dict)
-    canvas.itemconfig(word, text=f"{ran_word['French']}")
+    canvas.itemconfig(card_title, text="French")
+    canvas.itemconfig(card_word, text=f"{ran_word['French']}")
     # canvas.create_text(400, 263, text=f"{ran_word['French']}", font=("Ariel", 60, "bold"))
 # ---------------------------- COUNT DOWN ------------------------------- #
 # ---------------------------- SHOW TRANSLATION ------------------------------- #
@@ -30,8 +31,8 @@ window.config(padx=50, pady=50, bg=BACKGROUND_COLOR)
 canvas = Canvas(width=800, height=526, bg=BACKGROUND_COLOR, highlightthickness=0)
 img = PhotoImage(file="flashcard/images/card_front.png")
 canvas.create_image(400, 263, image=img)
-canvas.create_text(400, 150, text=f"French", font=("Ariel", 40, "italic"))
-word = canvas.create_text(400, 263, text="Word", font=("Ariel", 60, "bold"))
+card_title = canvas.create_text(400, 150, text=f"Title", font=("Ariel", 40, "italic"))
+card_word = canvas.create_text(400, 263, text="Word", font=("Ariel", 60, "bold"))
 canvas.grid(row=0, column=0, columnspan=2)
 
 # Labels
