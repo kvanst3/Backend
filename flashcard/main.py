@@ -7,8 +7,12 @@ ran_word = {}
 
 BACKGROUND_COLOR = "#B1DDC6"
 # ---------------------------- CSV TO DATA ------------------------------- #
-data = pandas.read_csv("flashcard/data/french_words.csv")
-data_dict = data.to_dict('records')
+try:
+    data = pandas.read_csv("flashcard/data/french_words_updated.csv")
+except FileNotFoundError:
+    data = pandas.read_csv("flashcard/data/french_words.csv")
+finally:
+    data_dict = data.to_dict('records')
 # ---------------------------- RANDOM WORD ------------------------------- #
 def generate_card():
     global ran_word, flip_timer
