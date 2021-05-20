@@ -6,3 +6,5 @@ password_manager/passwords.txt
 password_manager/passwords.json
 flashcard/data/french_words_updated.csv
 birthday wisher/user_info.py
+birthday_wisher/user_info.py
+birthday_wisher/birthdays.csv

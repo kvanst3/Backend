@@ -23,6 +23,6 @@ if now.weekday() == 3:
         connection.login(user=my_email, password=my_password)
         connection.sendmail(
             from_addr=my_email,
-            to_addrs="charlesgroin@gmail.com",
+            to_addrs="email@email.com",
             msg=f"Subject:Happy Birthday!\n\n{quote}"
         )
