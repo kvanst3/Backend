@@ -9,15 +9,16 @@ FONT = 10
 LETTERS = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z', 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z']
 NUMBERS = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9']
 SYMBOLS = ['!', '#', '$', '%', '&', '(', ')', '*', '+']
+JSON = '/home/k/Desktop/Python_projects/Python projects/password_manager/passwords.json'
 # ---------------------------- JSON WRITE ------------------------------- #
 def write_json(data):
-    with open("password_manager/passwords.json", mode="w") as file:
+    with open(JSON, mode="w") as file:
         json.dump(data, file, indent=4)
 # ---------------------------- SEARCH JSON ------------------------------- #
 def search_json():
     search = website_entry.get().lower()
     try:
-        with open("password_manager/passwords.json") as file:
+        with open(JSON) as file:
             result = json.load(file)
     except FileNotFoundError:
         messagebox.showinfo(title="Error", message=f"You currently have no saved password for {search.title()}.")
@@ -59,7 +60,7 @@ def save_password():
 
     if len(web) > 0 and len(password) > 0:
         try:
-            with open("password_manager/passwords.json", mode="r") as file:
+            with open(JSON, mode="r") as file:
                 data = json.load(file)
         except FileNotFoundError:
             write_json(json_data)
