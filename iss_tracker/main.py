@@ -42,6 +42,6 @@ if is_dark() and iss_overhead():
         connection.login(user=my_email, password=my_password)
         connection.sendmail(
             from_addr=my_email,
-            to_addrs=destination_email,
+            to_addrs=my_email,
             msg=f"Subject:ISS Tracker!\n\nLook up!"
         )
