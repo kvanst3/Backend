@@ -1,7 +1,7 @@
 import requests
 import numpy
 from datetime import datetime
-from user_info import my_email, my_password. destination_email
+from user_info import my_email, my_password, destination_email
 
 MY_LAT = 50.915726
 MY_LNG = 4.259706
