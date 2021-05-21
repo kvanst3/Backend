@@ -1,3 +1,6 @@
+import html
+
+
 class Quiz():
 
     def __init__(self, q_bank):
@@ -11,7 +14,7 @@ class Quiz():
             question = self.question_bank[self.question_number]
             print(f"Current Score: {self.right_answers}/{self.question_number}")
             self.question_number += 1
-            self.user_answer = True if input(f"Q.{self.question_number}: {question.text} (True/False)") == 't' else False
+            self.user_answer = True if input(html.unescape(f"Q.{self.question_number}: {question.text} (True/False)")) == 't' else False
             self.check_answer(question)
 
     def check_answer(self, question):
