@@ -1,11 +1,19 @@
 from question_model import Question
 from data import question_data
 from quiz_brain import Quiz
+import requests
 
+
+params = {
+    "amount": 10,
+    "type": "boolean",
+}
+response = requests.get("https://opentdb.com/api.php", params=params)
+response.raise_for_status()
 
 question_bank = []
-for question in question_data:
-    new_question = Question(question['text'], question['answer'])
+for i in response.json()['results']:
+    new_question = Question(i['question'], i['correct_answer'])
     question_bank.append(new_question)
 
 
