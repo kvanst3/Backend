@@ -19,10 +19,4 @@ for i in data:
     question_bank.append(new_question)
 
 
-quiz_ui = QuizInterface()
-
-quiz = Quiz(question_bank)
-
-# quiz.ask_question()
-
-print(f"Your Final Score is: {quiz.right_answers}/12")
+quiz_ui = QuizInterface(question_bank)
