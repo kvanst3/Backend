@@ -6,16 +6,13 @@ class Quiz():
 
     def __init__(self, q_bank):
         self.question_bank = q_bank
-        self.question_number = 0
+        self.question_number = 1
         self.right_answers = 0
         self.current_question = self.question_bank[self.question_number]
 
     def next_question(self):
         self.question_number += 1
-        if self.question_number < len(self.question_bank):
-            self.current_question = self.question_bank[self.question_number]
-        else:
-            self.current_question = Question(f"You have reach the end of the quiz.\n\nFinal Score: {self.right_answers}", "None")
+        self.current_question = self.question_bank[self.question_number]
 
     def check_answer(self, usr_answer):
         if self.current_question.answer == usr_answer:
@@ -26,3 +23,5 @@ class Quiz():
             print("Batsu...\n")
             return False
         
+    def still_has_questions(self):
+        return self.question_number < len(self.question_bank)

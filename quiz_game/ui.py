@@ -41,10 +41,15 @@ class QuizInterface:
         self.window.after(500, self.update_ui)
 
     def update_ui(self):
-        self.quiz.next_question()
         self.canvas.config(bg="white")
-        self.canvas.itemconfigure(self.question, text=f"{html.unescape(self.quiz.current_question.text)}")
         self.score_label.config(text=f"Score: {self.quiz.right_answers}")
+        if self.quiz.still_has_questions():
+            self.quiz.next_question()
+            self.canvas.itemconfigure(self.question, text=f"{html.unescape(self.quiz.current_question.text)}")
+        else:
+            self.canvas.itemconfigure(self.question, text=f"You have reach the end of the quiz.\n\nFinal Score: {self.quiz.right_answers}")
+            self.green_button.config(state="disable")
+            self.red_button.config(state="disable")
 
     def color_feedback(self, is_right):
         if is_right:
