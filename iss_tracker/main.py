@@ -3,9 +3,10 @@ import numpy
 import smtplib
 from datetime import datetime
 from user_info import my_email, my_password, destination_email
+import os
 
-MY_LAT = 50.915726
-MY_LNG = 4.259706
+MY_LAT = os.environ.get("MY_LAT")
+MY_LNG = os.environ.get("MY_LNG")
 
 
 def is_dark():
