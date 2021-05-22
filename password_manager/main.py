@@ -83,6 +83,11 @@ def save_password():
         messagebox.showerror(title="Error", message= "You need to populate all the fields before hitting Add")
 
 # ---------------------------- UI SETUP ------------------------------- #
+
+# class Focus(event):
+#     nameplayer.selection_range(0, END)
+
+
 window = Tk()
 window.title("Password Manager")
 window.config(padx=50, pady=50, bg="white")
@@ -127,6 +132,7 @@ password_generation_button.grid(column=2, row=3)
 add_button = Button(text="Add", command=save_password, bg="white", width=38, font=("Arial", FONT))
 add_button.grid(column=1, row=4, columnspan=2)
 
+email_entry.bind('<FocusIn>', lambda x: email_entry.selection_range(0, END))
 
 
 window.mainloop()
