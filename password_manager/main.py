@@ -117,7 +117,7 @@ website_entry.focus()
 
 email_entry = Entry(width=36)
 email_entry.grid(column=1, row=2, columnspan=2)
-email_entry.insert(0, os.environ.get("MY_EMAIL"))
+email_entry.insert(0, os.environ.get("KH_EMAIL"))
 
 password_entry = Entry(width=24)
 password_entry.grid(column=1, row=3)
