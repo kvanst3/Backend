@@ -21,6 +21,8 @@ class Quiz():
         if self.current_question.answer == usr_answer:
             self.right_answers += 1
             print("Seikou!\n")
+            return True
         else:
             print("Batsu...\n")
-        self.next_question()
+            return False
+        
