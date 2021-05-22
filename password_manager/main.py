@@ -4,6 +4,7 @@ from tkinter import messagebox
 from random import choice, randint, shuffle
 import pyperclip
 import json
+import os
 
 FONT = 10
 LETTERS = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z', 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z']
@@ -82,15 +83,14 @@ def save_password():
     else:
         messagebox.showerror(title="Error", message= "You need to populate all the fields before hitting Add")
 
+# ---------------------------- EVENT LISTENERS ------------------------------- #
+def lookup(event):
+    search_json()
 # ---------------------------- UI SETUP ------------------------------- #
-
-# class Focus(event):
-#     nameplayer.selection_range(0, END)
-
-
 window = Tk()
 window.title("Password Manager")
 window.config(padx=50, pady=50, bg="white")
+window.bind('<Return>', lookup)
 
 canvas = Canvas(width=200, height=200, bg="white", highlightthickness=0)
 img = PhotoImage(file="/home/k/Desktop/Python_projects/Python projects/password_manager/logo.png")
@@ -117,7 +117,7 @@ website_entry.focus()
 
 email_entry = Entry(width=36)
 email_entry.grid(column=1, row=2, columnspan=2)
-email_entry.insert(0, "email@email.com")
+email_entry.insert(0, os.environ.get("MY_EMAIL"))
 
 password_entry = Entry(width=24)
 password_entry.grid(column=1, row=3)
