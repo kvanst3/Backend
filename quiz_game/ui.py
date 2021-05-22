@@ -1,5 +1,4 @@
 from tkinter import *
-from quiz_brain import Quiz
 import html
 
 
@@ -8,12 +7,12 @@ THEME_COLOR = "#375362"
 
 class QuizInterface:
 
-    def __init__(self, q_bank):
+    def __init__(self, quiz):
         self.window = Tk()
         self.window.title("Quizzler")
         self.window.config(padx=20, pady=20, bg=THEME_COLOR)
         
-        self.quiz = Quiz(q_bank)
+        self.quiz = quiz
         
         self.canvas = Canvas(width=300, height=250, bg="white")
         self.question = self.canvas.create_text(150, 125, width=250, text=f"{html.unescape(self.quiz.current_question.text)}", font=("Arial", 20, "italic"))
@@ -29,7 +28,6 @@ class QuizInterface:
 
         self.score_label = Label(text=f"Score: {self.quiz.right_answers}", fg="white", bg=THEME_COLOR)
         self.score_label.grid(row=0, column=1)
-
 
         self.window.mainloop()
 

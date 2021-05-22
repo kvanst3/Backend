@@ -1,6 +1,7 @@
 from question_model import Question
 import requests
 from ui import QuizInterface
+from quiz_brain import Quiz
 
 
 params = {
@@ -16,5 +17,6 @@ for i in data:
     new_question = Question(i['question'], i['correct_answer'])
     question_bank.append(new_question)
 
+quiz = Quiz(question_bank)
 
-quiz_ui = QuizInterface(question_bank)
+quiz_ui = QuizInterface(quiz)

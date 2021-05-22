@@ -6,7 +6,6 @@ class Quiz():
 
     def __init__(self, q_bank):
         self.question_bank = q_bank
-        self.user_answer = bool()
         self.question_number = 0
         self.right_answers = 0
         self.current_question = self.question_bank[self.question_number]
@@ -18,8 +17,8 @@ class Quiz():
         else:
             self.current_question = Question(f"You have reach the end of the quiz.\n\nFinal Score: {self.right_answers}", "None")
 
-    def check_answer(self, bool):
-        if self.current_question.answer == bool:
+    def check_answer(self, usr_answer):
+        if self.current_question.answer == usr_answer:
             self.right_answers += 1
             print("Seikou!\n")
         else:
