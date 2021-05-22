@@ -25,7 +25,7 @@ def search_json():
     else:
         if search in result:
             messagebox.showinfo(title=search.title(), message=f"Email: {result[search]['email']}\nPassword: {result[search]['password']}")
-            pyperclip.copy(r[search]['password'])
+            pyperclip.copy(result[search]['password'])
         else:
             messagebox.showinfo(title="Error", message="No information match.")
         
