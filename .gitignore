@@ -10,3 +10,4 @@ birthday_wisher/user_info.py
 birthday_wisher/birthdays.csv
 iss_tracker/user_info.py
 rain_alert/onecall.json
+stock_alert/onecall.json
