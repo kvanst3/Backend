@@ -10,6 +10,12 @@ AA_ENDPOINT = https://www.alphavantage.co/query
 AA_KEY = os.environ.get('AA_KEY')
 
 
+params = {
+    'function': 'TIME_SERIES_DAILY',
+    'symbol': 'NVDA',
+    'outputsize': 'full',
+    'apikey': AA_KEY,
+}
 
 ## STEP 1: Use https://www.alphavantage.co key=RSSTIXHMD8CC71PH
 # When STOCK price increase/decreases by 5% between yesterday and the day before yesterday then print("Get News").
