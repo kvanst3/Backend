@@ -1,5 +1,6 @@
 import requests
 import os
+import datetime as dt
 
 
 USERNAME = 'indiko'
@@ -44,10 +45,11 @@ headers = {
 # Add to graph
 
 pixel_endpoint = f"{graph_endpoint}/{GRAPH_ID}"
+today = dt.datetime.now()
 
 params = {
-    "date": "20210525",
-    "quantity": "3",
+    "date": f'{today.strftime("%Y%m%d")}',
+    "quantity": "4",
 }
 
 response = requests.post(pixel_endpoint, json=params, headers=headers)
