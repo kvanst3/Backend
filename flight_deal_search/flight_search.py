@@ -2,6 +2,7 @@ import requests
 import json
 import datetime as dt
 import os
+from dateutil.relativedelta import relativedelta
 
 
 class FlightSearch:
@@ -12,12 +13,13 @@ class FlightSearch:
             'apikey': os.environ.get('KIWI_KEY')
         }
         self.id = row_id
-
+        today = dt.datetime.now()
+        later = today + relativedelta(months=+6)
         self.params = {
             "fly_from": "BRU",
             "fly_to": fly_to,
-            "dateFrom": "1/06/2021",
-            "dateTo": "1/10/2021",
+            "dateFrom": today.strftime('%d/%m/%Y'),
+            "dateTo": later.strftime('%d/%m/%Y'),
             "price_to": price,
             "max_stopovers": "1",
             "sort": "price",
