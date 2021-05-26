@@ -20,11 +20,15 @@ class DataManager:
         data = response.json()
         return data
         
-    def edit_data(self, price, airline, date):
-        self.params = {
-            "price": {
-                "lowest": price,
-                "airline": airline,
-                "departure": date,
+    def edit_data(self, flights_list):
+        for flight in flights_list:
+            params = {
+                "price": {
+                    "lowest": flight.price,
+                    "link": flight.link,
+                    "departure": flight.departure,
+                }
             }
-        }
+            response = requests.put(url=f'{self.endpoint}/{flight.id}', headers=self.headers, json=params)
+            response.raise_for_status()
+            print(response.text)

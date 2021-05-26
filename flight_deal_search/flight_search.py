@@ -6,11 +6,12 @@ import os
 
 class FlightSearch:
 
-    def __init__(self, fly_to, price):
+    def __init__(self, fly_to, price, row_id):
         self.endpoint = "https://tequila-api.kiwi.com/v2/search"
         self.headers = {
             'apikey': os.environ.get('KIWI_KEY')
         }
+        self.id = row_id
 
         self.params = {
             "fly_from": "BRU",
@@ -22,19 +23,23 @@ class FlightSearch:
             "sort": "price",
             "limit": "5"
         }
+        self.price = 0
+        self.departure = ""
+        self.link = ""
 
         self.search_flight()
-        self.price = 0
-        self.airline = ""
-        self.departure
 
     def search_flight(self):
         response = requests.get(self.endpoint, headers=self.headers, params=self.params)
         response.raise_for_status()
-        get_cheapest(response)
+        self.get_cheapest(response)
     
-    def get_cheapest(response):
+    def get_cheapest(self, response):
         data = response.json()
-        self.price = data['data'][0]['price']
-        self.airline = data['data'][0]['airlines'][0]
-        self.departure = data['data'][0]['local_departure']
+        if len(data['data']) > 0:
+            self.price = data['data'][0]['price']
+            self.link = data['data'][0]['deep_link']
+            self.departure = data['data'][0]['local_departure']
+
+
+            
