@@ -37,6 +37,7 @@ time = dt.datetime.now().strftime("%H%M%S")
 
 headers = {
     'Content-Type': 'application/json',
+    'Authorization': 'Bearer rAD+kvC081nJ(6',
 }
 
 for i in data["exercises"]:
