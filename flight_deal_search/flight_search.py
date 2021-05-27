@@ -42,6 +42,3 @@ class FlightSearch:
             self.price = data['data'][0]['price']
             self.link = data['data'][0]['deep_link']
             self.departure = data['data'][0]['local_departure']
-
-
-            
