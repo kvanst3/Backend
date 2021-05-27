@@ -2,8 +2,9 @@ import os
 import json
 import requests
 
+
 class DataManager:
-    
+
     def __init__(self):
         self.endpoint = "https://api.sheety.co/acdbb075b8fe1b012668d571d3d22746/flightDeals/prices"
         self.headers = {
@@ -19,7 +20,7 @@ class DataManager:
         print(response.text)
         data = response.json()
         return data
-        
+
     def edit_data(self, flights_list):
         for flight in flights_list:
             params = {
