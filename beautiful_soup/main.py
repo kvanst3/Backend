@@ -20,5 +20,8 @@ print(section_heading.getText())
 url = soup.select_one(selector="p a")
 print(url)
 
-name = soup.select_one(selector="#name")
+name = soup.select_one("#name")
 print(name)
+
+headings = soup.select(".heading")
+print(headings)
