@@ -16,3 +16,9 @@ print(heading)
 
 section_heading = soup.find(name="h3", class_="heading")
 print(section_heading.getText())
+
+url = soup.select_one(selector="p a")
+print(url)
+
+name = soup.select_one(selector="#name")
+print(name)
