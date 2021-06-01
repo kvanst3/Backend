@@ -32,16 +32,16 @@ response = requests.get('https://news.ycombinator.com/')
 page = response.text
 soup = BeautifulSoup(page, "html.parser")
 
-all_scores = soup.find_all(name='span', class_="score")
+all_score_tags = soup.find_all(name='span', class_="score")
 highest_score = 0
 high_score_index = 0
-for score in all_scores:
+for score in all_score_tags:
     num_score = int(score.get_text().split()[0])
     if num_score > highest_score:
         highest_score = num_score
-        high_score_index = all_scores.index(score)
+        high_score_index = all_score_tags.index(score)
 
-highest_post_id = all_scores[high_score_index].get("id").split("_")[1]
+highest_post_id = all_score_tags[high_score_index].get("id").split("_")[1]
 element = soup.find(attrs={"id": highest_post_id})
 target = element.find(class_="storylink")
 print(target.get_text())
