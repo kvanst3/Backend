@@ -39,7 +39,7 @@ for score in all_scores:
     num_score = int(score.get_text().split()[0])
     if num_score > highest_score:
         highest_score = num_score
-        high_score_index =  all_scores.index(score)
+        high_score_index = all_scores.index(score)
 
 highest_post_id = all_scores[high_score_index].get("id").split("_")[1]
 element = soup.find(attrs={"id": highest_post_id})
