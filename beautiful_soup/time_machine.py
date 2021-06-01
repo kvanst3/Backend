@@ -17,14 +17,17 @@ import os
 # titles = [title.get_text() for title in tags]
 
 
-user_id = os.environ.get('SPOTIPY_CLIENT_ID')
-spotify_endpoint = f"https://api.spotify.com/v1/users/{user_id}/playlists"
+user_sp_id = os.environ.get('SPOTIPY_CLIENT_ID')
+user_sp_secret = os.environ.get('SPOTIPY_CLIENT_SECRET')
 
-
-headers = {
-    
-}
-
-response = requests.get(url=endpoint, headers=headers)
-# response.raise_for_status()
-print(response.text)
+sp = spotipy.Spotify(
+    auth_manager=SpotifyOAuth(
+        scope="playlist-modify-private",
+        redirect_uri="http://example.com",
+        client_id=user_sp_id,
+        client_secret=user_sp_secret,
+        show_dialog=True,
+        cache_path="token.txt"
+    )
+)
+user_id = sp.current_user()["id"]
