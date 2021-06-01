@@ -3,8 +3,7 @@ import requests
 
 
 billboard_endpoint = "https://www.billboard.com/charts/hot-100/"
-# date = input("Which year you would like to travel to in YYY-MM-DD:")
-date = "1979-03-17"
+date = input("Which year you would like to travel to in YYYY-MM-DD:")
 
 response = requests.get(billboard_endpoint + date)
 page = response.text
