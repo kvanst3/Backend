@@ -32,7 +32,7 @@ response = requests.get('https://news.ycombinator.com/')
 page = response.text
 soup = BeautifulSoup(page, "html.parser")
 
-all_scores = s = soup.find_all(name='span', class_="score")
+all_scores = soup.find_all(name='span', class_="score")
 highest_score = 0
 high_score_index = 0
 for score in all_scores:
