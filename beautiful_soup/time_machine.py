@@ -2,6 +2,7 @@ from bs4 import BeautifulSoup
 import requests
 import spotipy
 from spotipy.oauth2 import SpotifyOAuth
+import os
 
 
 
@@ -16,12 +17,12 @@ from spotipy.oauth2 import SpotifyOAuth
 # titles = [title.get_text() for title in tags]
 
 
-user_id = "ga2lpswdbunxwi5dmsu1qpbah"
+user_id = os.environ.get('SPOTIPY_CLIENT_ID')
 spotify_endpoint = f"https://api.spotify.com/v1/users/{user_id}/playlists"
 
 
 headers = {
-    "Authorization": "6dbd5339013b43c9aa0d2e22360e5ae8"
+    
 }
 
 response = requests.get(url=endpoint, headers=headers)
