@@ -17,6 +17,9 @@ soup = BeautifulSoup(page, "html.parser")
 tags = soup.find_all(class_="chart-element__information__song text--truncate color--primary")
 titles = [title.get_text() for title in tags]
 
+tags = soup.find_all(class_="chart-element__information__artist text--truncate color--secondary")
+artists = [artist.get_text() for artist in tags]
+
 
 user_sp_id = os.environ.get('SPOTIPY_CLIENT_ID')
 user_sp_secret = os.environ.get('SPOTIPY_CLIENT_SECRET')
@@ -38,7 +41,7 @@ user_id = sp.current_user()["id"]
 song_uris = []
 year = date.split("-")[0]
 for song in titles:
-    result = sp.search(q=f"track:{song} year:{year}", type="track")
+    result = sp.search(q=f"artist:{artists[titles.index(song)]} track:{song} year:{year}", type="track")
     print(result)
     try:
         uri = result["tracks"]["items"][0]["uri"]
