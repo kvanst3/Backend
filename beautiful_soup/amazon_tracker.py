@@ -13,20 +13,20 @@ response.raise_for_status
 page = response.text
 
 soup = BeautifulSoup(page, "lxml")
-price = soup.select_one('#priceblock_ourprice').getText().split()[0]
+price = soup.select_one('#priceblock_ourprice').getText().split(',')[0]
 print(price)
 
 my_email = os.environ.get("INDI_EMAIL")
 my_pw = os.environ.get('INDI_PW')
 
-price = '79,78'
+message = f"the thing is at {price} go check it out on {website}".encode('utf-8')
 
-if float(price) < 85:
-    with smtplib.SMTP("smtp.gmail.com") as connection:
+if int(price) > 85:
+    with smtplib.SMTP("smtp.gmail.com", port=587) as connection:
         connection.starttls()
         connection.login(user=my_email, password=my_pw)
         connection.sendmail(
             from_addr=my_email,
             to_addrs=my_email,
-            msg=f"the thing is at {price}€ go check it out on {website}"
+            msg=f"Subject:Amazon Price Alert!\n\n{message}\n{website}",
         )
