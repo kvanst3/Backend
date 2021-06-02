@@ -2,8 +2,11 @@ import datetime as dt
 import pandas as pd
 from random import randint
 import smtplib
-from user_info import my_email, my_password
+import os
 
+
+my_email = os.environ.get('INDI_EMAIL')
+my_password = os.environ.get('INDI_PW')
 now = dt.datetime.now()
 
 csv_content = pd.read_csv("birthday_wisher/birthdays.csv")
