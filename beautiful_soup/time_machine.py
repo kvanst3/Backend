@@ -47,3 +47,7 @@ for song in titles:
         print(f"{song} doesn't exist in Spotify. Skipped.")
 
 print(song_uris)
+playlist = sp.user_playlist_create(user=user_id, name=f"{date} Billboard 100", public=False)
+# print(playlist)
+
+sp.playlist_add_items(playlist_id=playlist["id"], items=song_uris)
