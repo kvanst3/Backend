@@ -1,4 +1,5 @@
 from selenium import webdriver
+from selenium.webdriver.common.keys import Keys
 
 chrome_driver_path = "/home/k/Desktop/Python_projects/chromedriver"
 driver = webdriver.Chrome(executable_path=chrome_driver_path)
@@ -22,13 +23,22 @@ driver = webdriver.Chrome(executable_path=chrome_driver_path)
 
 # print(event_dict)
 
-##############################################################################
+#######################################CLICK#######################################
 
 driver.get('https://en.wikipedia.org/wiki/Main_Page')
-count_ele = driver.find_element_by_css_selector('#articlecount a')
-print(count_ele.text)
+# count_ele = driver.find_element_by_css_selector('#articlecount a')
+# print(count_ele.text)
+# count_ele.click()
 
-##############################################################################
+#####or#####
+all_portals = driver.find_element_by_link_text('All portals')
+all_portals.click()
+########################################TYPE######################################
+
+search = driver.find_element_by_name('search')
+search.send_keys('Python')
+search.send_keys(Keys.ENTER)
+print('r')
 
 # driver.close() # closes the active tab
 driver.quit() # quits the entire program
