@@ -13,7 +13,10 @@ event_ele = driver.find_elements_by_css_selector('.event-widget li a')
 
 event_dict = {}
 for i, t in enumerate(time_ele):
-    event_dict[i] = {"2021-" + t.text: event_ele[i].text}
+    event_dict[i] = {
+        "time": "2021-" + t.text,
+        "event": event_ele[i].text,
+        }
 
 print(event_dict)
 
