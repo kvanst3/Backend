@@ -7,18 +7,28 @@ driver = webdriver.Chrome(executable_path=chrome_driver_path)
 # price_element = driver.find_element_by_id("priceblock_ourprice")
 # print(price_element.text)
 
-driver.get('https://www.python.org/')
-time_ele = driver.find_elements_by_css_selector('.event-widget time')
-event_ele = driver.find_elements_by_css_selector('.event-widget li a')
+##############################################################################
 
-event_dict = {}
-for i, t in enumerate(time_ele):
-    event_dict[i] = {
-        "time": "2021-" + t.text,
-        "event": event_ele[i].text,
-        }
+# driver.get('https://www.python.org/')
+# time_ele = driver.find_elements_by_css_selector('.event-widget time')
+# event_ele = driver.find_elements_by_css_selector('.event-widget li a')
 
-print(event_dict)
+# event_dict = {}
+# for i, t in enumerate(time_ele):
+#     event_dict[i] = {
+#         "time": "2021-" + t.text,
+#         "event": event_ele[i].text,
+#         }
+
+# print(event_dict)
+
+##############################################################################
+
+driver.get('https://en.wikipedia.org/wiki/Main_Page')
+count_ele = driver.find_element_by_css_selector('#articlecount a')
+print(count_ele.text)
+
+##############################################################################
 
 # driver.close() # closes the active tab
 driver.quit() # quits the entire program
