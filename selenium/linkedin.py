@@ -19,5 +19,20 @@ password_field.send_keys(os.environ.get('LKDN_PW'))
 password_field.send_keys(Keys.ENTER)
 time.sleep(1)
 
+job_list = driver.find_elements_by_css_selector('.jobs-search-results .occludable-update')
+
+
+
+apply_button = driver.find_element_by_css_selector('.jobs-s-apply .jobs-apply-button')
+apply_button.click()
+next_button = driver.find_element_by_css_selector('footer button')
+next_button.click()
+cv_button = driver.find_elements_by_css_selector('footer button')[1]
+cv_button.click()
+follow_checker = driver.find_element_by_id('follow-company-checkbox')
+follow_checker.click()
+submit_button = driver.find_elements_by_css_selector('footer button')[1]
+submit_button.click()
+driver.find_element_by_css_selector('button').click()
 
 driver.quit() 
