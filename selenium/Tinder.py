@@ -1,7 +1,6 @@
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
-from selenium.webdriver.firefox.options import Options
-from selenium.webdriver.common.desired_capabilities import DesiredCapabilities
+from selenium.common.exceptions import ElementClickInterceptedException, NoSuchElementException
 import time
 import os
 
@@ -33,7 +32,7 @@ email_field.send_keys('ce_khaonation@hotmail.com')
 pw_field = driver.find_element_by_id('pass')
 pw_field.send_keys(os.environ.get('LKDN_PW').lower())
 driver.find_element_by_id('loginbutton').click()
-time.sleep(1)
+time.sleep(3)
 driver.switch_to_window(main_window)
 time.sleep(3)
 driver.find_element_by_xpath('//*[@id="o-441539182"]/div/div/div/div/div[3]/button[1]').click()
@@ -41,6 +40,18 @@ driver.find_element_by_xpath('//*[@id="o-441539182"]/div/div/div/div/div[3]/butt
 driver.find_element_by_xpath('/html/body/div[2]/div/div/div/div/div[3]/button[2]').click()
 time.sleep(3)
 driver.find_element_by_xpath('/html/body/div[2]/div/div/div/div[3]/button[2]').click()
+
+for _ in range(100):
+    try:
+        driver.find_element_by_xpath('//*[@id="o1286841894"]/div/div[1]/div/main/div[1]/div/div/div[1]/div[1]/div[2]/div[4]/button').click()
+    except ElementClickInterceptedException:
+        time.sleep(1)
+        try:
+            driver.find_element_by_xpath('//*[@id="o-441539182"]/div/div/div[2]/button[2]').click()
+        except NoSuchElementException:
+            time.sleep(1)
+            driver.find_element_by_xpath('//*[@id="o-441539182"]/div/div/div[3]/button').click()
+    time.sleep(1)
 
 print('r')
 driver.quit() 
