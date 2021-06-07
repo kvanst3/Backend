@@ -20,6 +20,7 @@ class InternetSpeedTwitterBot:
         # self.driver.find_element_by_css_selector('.modal .close-btn').click()
         self.down = self.driver.find_element_by_class_name('result-item-download').text.split('\n')[1]
         self.up = self.driver.find_element_by_class_name('result-item-upload').text.split('\n')[1]
+        self.driver.quit()
 
     def tweet_at_provider():
         pass
