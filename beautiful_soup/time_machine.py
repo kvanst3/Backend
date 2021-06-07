@@ -3,22 +3,34 @@ import requests
 import spotipy
 from spotipy.oauth2 import SpotifyOAuth
 import os
-# from token import {"access_token"}
+
+with open('beautiful_soup/playlist.txt') as file:
+    content = file.readlines()
+
+titles = []
+artists = []
+
+for line in content:
+    track = line.split(' - ')
+    titles.append(track[1].strip())
+    artists.append(track[0].strip())
+
+print(artists)
+print(titles)
 
 
+# billboard_endpoint = "https://www.billboard.com/charts/hot-100/"
+# date = input("Which year you would like to travel to in YYYY-MM-DD:")
 
-billboard_endpoint = "https://www.billboard.com/charts/hot-100/"
-date = input("Which year you would like to travel to in YYYY-MM-DD:")
+# response = requests.get(billboard_endpoint + date)
+# page = response.text
+# soup = BeautifulSoup(page, "html.parser")
 
-response = requests.get(billboard_endpoint + date)
-page = response.text
-soup = BeautifulSoup(page, "html.parser")
+# tags = soup.find_all(class_="chart-element__information__song text--truncate color--primary")
+# titles = [title.get_text() for title in tags]
 
-tags = soup.find_all(class_="chart-element__information__song text--truncate color--primary")
-titles = [title.get_text() for title in tags]
-
-tags = soup.find_all(class_="chart-element__information__artist text--truncate color--secondary")
-artists = [artist.get_text() for artist in tags]
+# tags = soup.find_all(class_="chart-element__information__artist text--truncate color--secondary")
+# artists = [artist.get_text() for artist in tags]
 
 
 user_sp_id = os.environ.get('SPOTIPY_CLIENT_ID')
