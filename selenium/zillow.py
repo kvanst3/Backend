@@ -36,12 +36,24 @@ for ad in listing:
     except AttributeError:
         print(f"couldn't get ad at index: {listing.index(ad)}")
 
-print(ad_list)
-
 
 driver_path = "/home/k/Desktop/Python_projects/geckodriver"
 url = 'https://docs.google.com/forms/d/e/1FAIpQLSc1Xg2V7BLVLDWs5PYWrufv3NrfjLeY_bVTfuKEkBsJBAQSHg/viewform?usp=sf_link'
 driver = webdriver.Firefox(executable_path=driver_path)
+time.sleep(2)
+driver.get(url)
+
+for ad in ad_list:
+    input_fields = driver.find_elements_by_class_name("quantumWizTextinputPaperinputInput")
+    input_fields[0].send_keys(ad["address"])
+    input_fields[1].send_keys(ad["price"])
+    input_fields[2].send_keys(ad["url"])
+
+    driver.find_element_by_class_name("appsMaterialWizButtonPaperbuttonLabel").click()
+    time.sleep(0.2)
+    driver.find_element_by_css_selector('a').click()
+    time.sleep(0.2)
+
 
 driver.get(url)
 print('r')
