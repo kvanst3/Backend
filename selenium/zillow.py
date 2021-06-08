@@ -27,6 +27,9 @@ for ad in listing:
         price = ad.find(class_="list-card-price").text
         link = ad.select_one('a').get('href')
 
+        if "http" not in address:
+            address = f"https://www.zillow.com{address}"
+
         flat = {
             "address": address,
             "price": price,
