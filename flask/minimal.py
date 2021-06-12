@@ -2,6 +2,11 @@ from flask import Flask
 
 app = Flask(__name__)
 
+def bold_decorator(func):
+    def wrapper_function():
+        return f"<b>{func()}</b>"
+    return wrapper_function
+
 @app.route("/")
 def hello_world():
     return "<p>Hello, World!</p>"
@@ -13,6 +18,11 @@ def details():
 @app.route("/<name>")
 def greet(name):
     return f"Hello {name}"
+
+@app.route("/bye")
+@bold_decorator
+def bye():
+    return "Bye"
 
 # if __name__ == "__main__":
 #     app.run()
