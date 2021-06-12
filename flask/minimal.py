@@ -10,5 +10,9 @@ def hello_world():
 def details():
     return "<h1>YESSEREE!!</h1>"
 
+# if __name__ == "__main__":
+#     app.run()
+
+# to activate auto reload
 if __name__ == "__main__":
-    app.run()
+    app.run(debug=True)
