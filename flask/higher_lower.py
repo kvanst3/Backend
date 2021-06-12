@@ -10,7 +10,17 @@ def hello_world():
 
 number_to_guess = randint(0, 9)
 
-
+@app.route("/<int:user_guess>")
+def check_guess(user_guess):
+    if user_guess > number_to_guess:
+        return "<h1 style='text-align: center; color: red'> Too high </h1>" \
+               "<img src='https://media.giphy.com/media/3o6ZtaO9BZHcOjmErm/giphy.gif'>"
+    elif user_guess < number_to_guess:
+        return "<h1 style='text-align: center; color: blue'> Too low</h1>" \
+               "<img src='https://media.giphy.com/media/jD4DwBtqPXRXa/giphy.gif'>"
+    else:
+        return "<h1 style='text-align: center; color: purple'> You got it!</h1>" \
+               "<img src='https://media.giphy.com/media/4T7e4DmcrP9du/giphy.gif'>"
 
 if __name__ == "__main__":
     app.run(debug=True)
