@@ -22,7 +22,7 @@ def guess(fname):
     response = requests.get(f"https://api.agify.io?name={fname}")
     result = response.json()
     age = result["age"]
-    return render_template("guess.html", gender=gender, fname=fname.title(), age=age)
+    return render_template("guess.html", gender=gender, fname=fname, age=age)
 
 
 if __name__ == "__main__":
