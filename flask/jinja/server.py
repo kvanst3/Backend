@@ -7,6 +7,8 @@ import json
 
 app = Flask(__name__)
 
+response = requests.get("https://api.npoint.io/752bea529869fdd9037a")
+posts = response.json()
 
 @app.route("/")
 def home():
@@ -24,12 +26,14 @@ def guess(fname):
     age = result["age"]
     return render_template("guess.html", gender=gender, fname=fname, age=age)
 
-@app.route("/blogposts")
+@app.route("/blogposts")        
 def blogposts():
-    response = requests.get("https://api.npoint.io/752bea529869fdd9037a")
-    result = response.json()
-    return render_template("blogposts.html", posts=result)
+    return render_template("blogposts.html", posts=posts)
 
+@app.route("/blog/<id>")
+def post(id):
+    post = posts[int(id) -1]
+    return render_template('post.html', post=post)
 
 if __name__ == "__main__":
     app.run(debug=True)

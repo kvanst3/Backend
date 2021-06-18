@@ -1,5 +1,7 @@
 <h2>
     {% for post in posts %}
-    <ul>{{post["title"]}}</ul>
+    <ul>
+        <a href="{{url_for('post', id=post['id'])}}">{{post["title"]}}</a>
+    </ul>
     {% endfor %}
 </h2>
