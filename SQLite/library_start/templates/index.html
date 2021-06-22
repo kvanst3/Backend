@@ -8,7 +8,7 @@
             <p>Library is empty.</p>
         {% endif %}
         {%for book in books%}
-            <li>{{book.title}} - {{book.author}} - {{book.rating}} <a href="{{url_for('edit', book_id=book.id)}}">edit</a> </li>
+            <li>{{book.title}} - {{book.author}} - {{book.rating}} <a href="{{url_for('edit', book_id=book.id)}}">edit</a> <a href="{{url_for('delete', id=book.id)}}">delete</a> </li>
         {%endfor%}
     </ul>
     
