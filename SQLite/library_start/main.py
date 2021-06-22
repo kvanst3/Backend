@@ -32,6 +32,7 @@ if not os.path.isfile(FILE_URI):
 
 @app.route('/')
 def home():
+    # all_books = db.session.query(Book).all()  #Alternative to below
     return render_template('index.html', books=Book.query.all())
 
 
