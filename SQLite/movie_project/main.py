@@ -9,6 +9,7 @@ from wtforms.validators import DataRequired
 import requests
 import os
 
+
 DB_URI = 'sqlite:///movies.db'
 ENDPOINT = 'https://api.themoviedb.org/3/search/movie'
 API_KEY = os.environ.get('DB_MOVIE_KEY')
@@ -47,7 +48,7 @@ class AddMovieForm(FlaskForm):
 
 @app.route("/")
 def home():
-    all_movies=Movie.query.all()
+    all_movies = Movie.query.order_by(Movie.rating).all()
     return render_template("index.html", movies=all_movies)
 
 @app.route('/add', methods=["GET", "POST"])
@@ -88,7 +89,7 @@ def select(id):
     movie = Movie(title=title, year=year, description=description, img_url=img_url)
     db.session.add(movie)
     db.session.commit()
-    return redirect(url_for('home'))
+    return redirect(url_for('edit', id=movie.id))
 
 
 @app.route('/edit', methods=["GET", "POST"])
@@ -111,7 +112,6 @@ def delete():
     db.session.delete(movie_to_delete)
     db.session.commit()
     return redirect(url_for('home'))
-    
 
 if __name__ == '__main__':
     app.run(debug=True)
