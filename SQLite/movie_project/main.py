@@ -65,15 +65,30 @@ def add():
         response.raise_for_status
 
         data = response.json()
-        title = data['results'][0]['title']
-        year = data['results'][0]['release_date'].split('-')[0]
-        description = data['results'][0]['overview']
-        img_url = 'http://image.tmdb.org/t/p/w300' + data['results'][0]['poster_path']
-        movie = Movie(title=title, year=year, description=description, img_url=img_url)
-        db.session.add(movie)
-        db.session.commit()
-        return redirect(url_for('home'))
+        results = data['results']
+        return render_template('select.html', movies=results)
+        
     return render_template('add.html', form=form)
+    
+
+@app.route("/select/<int:id>", methods=["GET", "POST"])
+def select(id):
+    params = {
+        'api_key': API_KEY,
+        'language': 'en-US',
+    }
+    response = requests.get(f'https://api.themoviedb.org/3/movie/{id}', params=params)
+    response.raise_for_status
+    data = response.json()
+
+    title = data['title']
+    year = data['release_date'].split('-')[0]
+    description = data['overview']
+    img_url = 'http://image.tmdb.org/t/p/w300' + data['poster_path']
+    movie = Movie(title=title, year=year, description=description, img_url=img_url)
+    db.session.add(movie)
+    db.session.commit()
+    return redirect(url_for('home'))
 
 
 @app.route('/edit', methods=["GET", "POST"])

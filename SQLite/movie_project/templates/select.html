@@ -1,6 +1,7 @@
 {% extends 'bootstrap/base.html' %}
 {% import "bootstrap/wtf.html" as wtf %}
 
+
 {% block styles %}
   {{ super() }}
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nunito+Sans:300,400,700">
@@ -14,7 +15,14 @@
 <div class="container">
     <h1 class="heading">Select Movie</h1>
   <p>
-    <a href="#"> MOVIE TITLE - MOVIE RELEASE DATE</a>
+    {% for movie in movies %}
+      {% if movie['poster_path']%}
+        <a href="{{url_for('select', id=movie['id'])}}"> <img src="{{'http://image.tmdb.org/t/p/w300' + movie['poster_path']}}" alt=""  width="300"> </a>
+      {%else%}
+        <a href="{{url_for('select', id=movie['id'])}}"> <img src="{{url_for('static', filename='images/placeholder.png')}}" alt=""  width="300"> </a>
+      {%endif%}
+      <p>{{movie['title']}} - {{movie['release_date']}}</p>
+    {%endfor%}
   </p>
 
 </div>
