@@ -1,4 +1,6 @@
+from operator import index
 from flask import Flask, render_template, redirect, url_for, request
+from flask.templating import render_template_string
 from flask_bootstrap import Bootstrap
 from flask_sqlalchemy import SQLAlchemy
 from flask_wtf import FlaskForm
@@ -32,10 +34,28 @@ if not os.path.isfile(DB_URI):
     db.create_all()
 
 
+class RateMovieForm(FlaskForm):
+    rating = StringField("Your Rating Out of 10 e.g. 7.5")
+    review = StringField("Your Review")
+    submit = SubmitField("Done")
+
+
 @app.route("/")
 def home():
     all_movies=Movie.query.all()
     return render_template("index.html", movies=all_movies)
+
+@app.route('/edit', methods=["GET", "POST"])
+def edit():
+    form = RateMovieForm()
+    movie_id = request.args.get('id')
+    movie = Movie.query.get(movie_id)
+    if form.validate_on_submit():
+        movie.rating = float(form.rating.data)
+        movie.review = form.review.data
+        db.session.commit()
+        return redirect(url_for('home'))
+    return render_template('edit.html', movie=movie, form=form)
 
 
 if __name__ == '__main__':
