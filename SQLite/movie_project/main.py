@@ -10,6 +10,8 @@ import requests
 import os
 
 DB_URI = 'sqlite:///movies.db'
+ENDPOINT = 'https://api.themoviedb.org/3/search/movie'
+API_KEY = os.environ.get('DB_MOVIE_KEY')
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = '8BYkEfBA6O6donzWlSihBXox7C0sKR6b'
@@ -39,11 +41,40 @@ class RateMovieForm(FlaskForm):
     review = StringField("Your Review")
     submit = SubmitField("Done")
 
+class AddMovieForm(FlaskForm):
+    title = StringField('Title of the movie you are looking for')
+    submit = SubmitField("Add Movie")
 
 @app.route("/")
 def home():
     all_movies=Movie.query.all()
     return render_template("index.html", movies=all_movies)
+
+@app.route('/add', methods=["GET", "POST"])
+def add():
+    form = AddMovieForm()
+    if form.validate_on_submit():
+        params = {
+            'api_key': API_KEY,
+            'query': form.title.data,
+            'language': 'en-US',
+            'page': 1,
+            'include_adult': "false",
+        }
+        response = requests.get(ENDPOINT, params=params)
+        response.raise_for_status
+
+        data = response.json()
+        title = data['results'][0]['title']
+        year = data['results'][0]['release_date'].split('-')[0]
+        description = data['results'][0]['overview']
+        img_url = 'http://image.tmdb.org/t/p/w300' + data['results'][0]['poster_path']
+        movie = Movie(title=title, year=year, description=description, img_url=img_url)
+        db.session.add(movie)
+        db.session.commit()
+        return redirect(url_for('home'))
+    return render_template('add.html', form=form)
+
 
 @app.route('/edit', methods=["GET", "POST"])
 def edit():
