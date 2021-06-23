@@ -16,10 +16,10 @@
   <h1 class="heading">My Top 10 Movies</h1>
   <p class="description">These are my all time favourite movies.</p>
    
-  {% for movie in all_movies %}
+  {% for movie in movies %}
     <div class="card" >
       <div class="front" style="background-image: url({{movie.img_url}});">
-          <p class="large">{{all_movies.index(movie) + 1}}</p>
+          <p class="large">{{movie.ranking}}</p>
       </div>
       <div class="back">
         <div>

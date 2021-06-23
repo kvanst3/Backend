@@ -34,7 +34,8 @@ if not os.path.isfile(DB_URI):
 
 @app.route("/")
 def home():
-    return render_template("index.html", all_movies=Movie.query.all())
+    all_movies=Movie.query.all()
+    return render_template("index.html", movies=all_movies)
 
 
 if __name__ == '__main__':
