@@ -48,7 +48,6 @@ def home():
 def random():
     num = db.session.query(Cafe).count()
     random_cafe = db.session.query(Cafe).get(randint(1 ,num))
-    print(random_cafe)
     return jsonify(cafe=random_cafe.to_dict())
     # return jsonify(
     #     id=random_cafe.id,
@@ -63,7 +62,13 @@ def random():
     #     can_take_calls=random_cafe.can_take_calls,
     #     coffee_price=random_cafe.coffee_price
     # )
-## HTTP GET - Read Record
+
+@app.route("/all")
+def all():
+    cafes = db.session.query(Cafe).all()
+    return jsonify(
+        cafes=[cafe.to_dict() for cafe in cafes]
+    )
 
 ## HTTP POST - Create Record
 
