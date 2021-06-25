@@ -38,11 +38,11 @@ class CreatePostForm(FlaskForm):
     submit = SubmitField("Submit Post")
 
 
-posts = db.session.query(BlogPost).all()
 
 
 @app.route('/')
 def get_all_posts():
+    posts = db.session.query(BlogPost).all()
     return render_template("index.html", all_posts=posts)
 
 
@@ -65,7 +65,7 @@ def contact():
     return render_template("contact.html")
 
 
-@app.route("/edit<post_id>", methods=["GET", "PATCH"])
+@app.route("/edit/<post_id>", methods=["GET", "PATCH"])
 def edit_post(post_id):
     pass
 
