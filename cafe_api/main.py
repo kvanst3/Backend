@@ -114,7 +114,7 @@ def update(id):
 
 @app.route("/report-closed/<int:id>", methods=["DELETE"])
 def delete(id):
-    key = request.args.get("api-key")
+    key = request.headers.get("api-key")
     if key == "TopSecretAPIKey":
         cafe = db.session.query(Cafe).get(id)
         if cafe:
