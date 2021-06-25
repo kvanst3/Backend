@@ -112,6 +112,20 @@ def update(id):
         return jsonify(error={"Not Found": "Sorry, we don't have a coffee for that id"}), 404
 
 
+@app.route("/report-closed/<int:id>", methods=["DELETE"])
+def delete(id):
+    key = request.args.get("api-key")
+    if key == "TopSecretAPIKey":
+        cafe = db.session.query(Cafe).get(id)
+        if cafe:
+            db.session.delete(cafe)
+            db.session.commit()
+            return jsonify(response={"success": "Successfully deleted cafe."}), 200
+        else:
+            return jsonify(error={"Not Found": "Sorry a cafe with that id was not found in the database."}), 404
+    else:
+        return jsonify(response={"error": "Not Authorized"}), 401
+
 
 if __name__ == '__main__':
     app.run(debug=True)
