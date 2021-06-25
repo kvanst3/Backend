@@ -7,10 +7,6 @@ from wtforms.validators import DataRequired, URL
 from flask_ckeditor import CKEditor, CKEditorField
 
 
-## Delete this code:
-# import requests
-# posts = requests.get("https://api.npoint.io/43644ec4f0013682fc0d").json()
-
 app = Flask(__name__)
 app.config['SECRET_KEY'] = '8BYkEfBA6O6donzWlSihBXox7C0sKR6b'
 ckeditor = CKEditor(app)
@@ -42,6 +38,9 @@ class CreatePostForm(FlaskForm):
     submit = SubmitField("Submit Post")
 
 
+posts = db.session.query(BlogPost).all()
+
+
 @app.route('/')
 def get_all_posts():
     return render_template("index.html", all_posts=posts)
@@ -49,11 +48,11 @@ def get_all_posts():
 
 @app.route("/post/<int:index>")
 def show_post(index):
-    requested_post = None
-    for blog_post in posts:
-        if blog_post["id"] == index:
-            requested_post = blog_post
-    return render_template("post.html", post=requested_post)
+    post = db.session.query(BlogPost).get(index)
+    if post:
+        return render_template("post.html", post=post)
+    else:
+        return "Wrong ID"
 
 
 @app.route("/about")
@@ -64,6 +63,11 @@ def about():
 @app.route("/contact")
 def contact():
     return render_template("contact.html")
+
+
+@app.route("/edit<post_id>", methods=["GET", "PATCH"])
+def edit_post(post_id):
+    pass
 
 if __name__ == "__main__":
     app.run(host='0.0.0.0', port=5000)
