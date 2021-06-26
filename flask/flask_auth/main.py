@@ -40,28 +40,39 @@ def home():
 def register():
     if request.method == "POST":
         email = request.form['email']
-        name = request.form['name']
-        password = generate_password_hash(request.form['password'], method='pbkdf2:sha256', salt_length=8)
-        new_user = User(email=email, name=name, password=password)
-        db.session.add(new_user)
-        db.session.commit()
-        login_user(new_user)
-        return render_template('secrets.html', user=new_user)
+        if not User.query.filter_by(email=email).first():
+            name = request.form['name']
+            password = generate_password_hash(request.form['password'], method='pbkdf2:sha256', salt_length=8)
+            new_user = User(email=email, name=name, password=password)
+            db.session.add(new_user)
+            db.session.commit()
+            login_user(new_user)
+            return redirect(url_for("secrets"))
+        else:
+            flash("You've already signed up with that email, log in instead!")
+            return redirect(url_for('login'))
     return render_template("register.html")
 
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
+    error = None
     if request.method == "POST":
         login = request.form['email']
         password = request.form['password']
         user = db.session.query(User).filter_by(email=login).first()
-        pwhash = user.password
-        if check_password_hash(pwhash, password):
+
+        if not user:
+            flash('Incorrect email, please try again.')
+        elif check_password_hash(user.password, password):
             login_user(user)
-            # flask.flash('Logged in successfully.')
+            flash('Logged in successfully.')
             return redirect(url_for('secrets'))
-    return render_template("login.html")
+        else:
+            flash('Password incorrect, please try again.')
+            return redirect(url_for('login'))
+
+    return render_template("login.html", error=error)
 
 
 @app.route('/secrets')
