@@ -19,13 +19,14 @@ class User(UserMixin, db.Model):
 #Line below only required once, when creating DB. 
 # db.create_all()
 
+
 ##AUTH
 login_manager = LoginManager()
 login_manager.init_app(app)
 
 @login_manager.user_loader
 def load_user(user_id):
-    return User.get(user_id)
+    return User.query.get(int(user_id))
 
 
 ##Routes
@@ -44,34 +45,40 @@ def register():
         new_user = User(email=email, name=name, password=password)
         db.session.add(new_user)
         db.session.commit()
+        login_user(new_user)
         return render_template('secrets.html', user=new_user)
     return render_template("register.html")
 
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
-    if reques.method == "POST":
+    if request.method == "POST":
         login = request.form['email']
         password = request.form['password']
         user = db.session.query(User).filter_by(email=login).first()
         pwhash = user.password
-        if werkzeug.security.check_password_hash(pwhash, password):
-            print("Authenticated")
-            return render_template('secrets.html', user=user)
+        if check_password_hash(pwhash, password):
+            login_user(user)
+            # flask.flash('Logged in successfully.')
+            return redirect(url_for('secrets'))
     return render_template("login.html")
 
 
 @app.route('/secrets')
+@login_required
 def secrets():
-    return render_template("secrets.html")
+    print(current_user.name)
+    return render_template("secrets.html", current_user=current_user)
 
 
 @app.route('/logout')
 def logout():
-    pass
+    logout_user()
+    return redirect(url_for('home'))
 
 
 @app.route('/download')
+@login_required
 def download():
     return send_from_directory('static', "files/cheat_sheet.pdf", as_attachment=True)
 
