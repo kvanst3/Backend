@@ -4,7 +4,7 @@ from flask_ckeditor import CKEditor
 from datetime import date
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_sqlalchemy import SQLAlchemy
-from sqlalchemy.orm import relationship
+from sqlalchemy.orm import relation, relationship
 from flask_login import UserMixin, login_manager, login_user, LoginManager, login_required, current_user, logout_user
 from forms import CreateCommentForm, CreatePostForm, CreateRegisterForm, CreateLoginForm
 from flask_gravatar import Gravatar
@@ -39,6 +39,7 @@ class User(UserMixin, db.Model):
     #This will act like a List of BlogPost objects attached to each User. 
     #The "author" refers to the author property in the BlogPost class.
     posts = relationship('BlogPost', back_populates='author')
+    comments = relationship('Comment', back_populates='author')
 
 
 class BlogPost(db.Model):
@@ -53,7 +54,17 @@ class BlogPost(db.Model):
     date = db.Column(db.String(250), nullable=False)
     body = db.Column(db.Text, nullable=False)
     img_url = db.Column(db.String(250), nullable=False)
-    # user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
+    comments = relationship('Comment', back_populates='parent_post')
+
+
+class Comment(db.Model):
+    __tablename__ = "comments"
+    id = db.Column(db.Integer, primary_key=True)
+    text = db.Column(db.Text, nullable=False)
+    author_id = db.Column(db.Integer, db.ForeignKey("users.id"))
+    author = relationship("User", back_populates="comments")
+    post_id = db.Column(db.Integer, db.ForeignKey('blog_posts.id'))
+    parent_post = relationship("BlogPost", back_populates="comments")
 
 # db.create_all()
 
