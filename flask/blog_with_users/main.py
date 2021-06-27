@@ -1,4 +1,4 @@
-from flask import Flask, render_template, redirect, url_for, flash, request
+from flask import Flask, render_template, redirect, url_for, flash, request, abort
 from flask_bootstrap import Bootstrap
 from flask_ckeditor import CKEditor
 from datetime import date
@@ -8,6 +8,7 @@ from sqlalchemy.orm import relationship
 from flask_login import UserMixin, login_manager, login_user, LoginManager, login_required, current_user, logout_user
 from forms import CreatePostForm, CreateRegisterForm, CreateLoginForm
 from flask_gravatar import Gravatar
+from functools import wraps
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = '8BYkEfBA6O6donzWlSihBXox7C0sKR6b'
@@ -48,7 +49,15 @@ class User(UserMixin, db.Model):
     # posts = db.relationship('BlogPost', backref='user', lazy=True)
 
 
-# db.create_all()
+def admin_only(f):
+    @wraps(f)
+    def decorated_function(*args, **kwargs):
+        #If id is not 1 then return abort with 403 error
+        if current_user.id != 1:
+            return abort(403)
+        #Otherwise continue with the route function
+        return f(*args, **kwargs)        
+    return decorated_function
 
 
 @app.route('/')
@@ -126,6 +135,7 @@ def contact():
 
 
 @app.route("/new-post")
+@admin_only
 @login_required
 def add_new_post():
     form = CreatePostForm()
