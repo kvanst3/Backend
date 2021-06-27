@@ -47,8 +47,10 @@
                       <img src="https://pbs.twimg.com/profile_images/744849215675838464/IH0FNIXk.jpg"/>
                     </div>
                     <div class="commentText">
-                      <p>Some comment</p>
-                      <span class="date sub-text">comment author name</span>
+                      {% for comment in comments %}
+                      <p>{{comment.text|safe}}</p>
+                      <span class="date sub-text">{{comment.author.name}}</span>
+                      {% endfor %}
                     </div>
                 </li>
               </ul>

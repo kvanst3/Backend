@@ -136,12 +136,24 @@ def logout():
     return redirect(url_for('get_all_posts'))
 
 
-@app.route("/post/<int:post_id>")
-@login_required
+@app.route("/post/<int:post_id>", methods=['GET', 'POST'])
 def show_post(post_id):
     form = CreateCommentForm()
     requested_post = BlogPost.query.get(post_id)
-    return render_template("post.html", post=requested_post, current_user=current_user, comment_form=form)
+    if form.validate_on_submit():
+        if not current_user.is_authenticated:
+            flash("You must be logged-in to comment on blog posts.")
+            return redirect(url_for('login'))
+    
+        new_comment = Comment(
+            text=form.comment.data,
+            author=current_user,
+            parent_post=requested_post
+        )
+        db.session.add(new_comment)
+        db.session.commit()
+        return redirect(url_for('show_post', post_id=post_id))
+    return render_template("post.html", post=requested_post, current_user=current_user, comment_form=form, comments=requested_post.comments)
 
 
 @app.route("/about")
