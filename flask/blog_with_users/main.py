@@ -6,7 +6,7 @@ from werkzeug.security import generate_password_hash, check_password_hash
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy.orm import relationship
 from flask_login import UserMixin, login_manager, login_user, LoginManager, login_required, current_user, logout_user
-from forms import CreatePostForm, CreateRegisterForm, CreateLoginForm
+from forms import CreateCommentForm, CreatePostForm, CreateRegisterForm, CreateLoginForm
 from flask_gravatar import Gravatar
 from functools import wraps
 
@@ -128,8 +128,9 @@ def logout():
 @app.route("/post/<int:post_id>")
 @login_required
 def show_post(post_id):
+    form = CreateCommentForm()
     requested_post = BlogPost.query.get(post_id)
-    return render_template("post.html", post=requested_post, current_user=current_user)
+    return render_template("post.html", post=requested_post, current_user=current_user, comment_form=form)
 
 
 @app.route("/about")
