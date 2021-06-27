@@ -1,4 +1,4 @@
-from flask import Flask, render_template, redirect, url_for, flash
+from flask import Flask, render_template, redirect, url_for, flash, request
 from flask_bootstrap import Bootstrap
 from flask_ckeditor import CKEditor
 from datetime import date
@@ -62,26 +62,32 @@ def get_all_posts():
 def register():
     form = CreateRegisterForm()
     if form.validate_on_submit():
-        hash_and_salted_password = generate_password_hash(
-            form.password.data,
-            method='pbkdf2:sha256',
-            salt_length=8
-        )
-        new_user = User(
-            name=form.name.data,
-            email=form.email.data,
-            password=hash_and_salted_password
-        )
-        db.session.add(new_user)
-        db.session.commit()
-        login_user(new_user)
-        return redirect(url_for('get_all_posts'))
+        existing_user = User.query.filter_by(email=form.email.data).first()
+        if existing_user:
+            flash("This email is already registered. Login instead.")
+            return redirect(url_for('login', email=existing_user.email))
+        else:
+            hash_and_salted_password = generate_password_hash(
+                form.password.data,
+                method='pbkdf2:sha256',
+                salt_length=8
+            )
+            new_user = User(
+                name=form.name.data,
+                email=form.email.data,
+                password=hash_and_salted_password
+            )
+            db.session.add(new_user)
+            db.session.commit()
+            login_user(new_user)
+            return redirect(url_for('get_all_posts'))
     return render_template("register.html", form=form, logged_in=current_user.is_authenticated)
 
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
-    form = CreateLoginForm()
+    email=request.args.get('email')
+    form = CreateLoginForm(email=email)
     if form.validate_on_submit():
         user = User.query.filter_by(email=form.email.data).first()
         if not user:
