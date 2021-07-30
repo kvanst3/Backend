@@ -77,7 +77,7 @@ window.title("Pomodoro")
 window.config(padx=100, pady=50, bg=YELLOW)
 
 canvas = Canvas(width=200, height=224, bg=YELLOW, highlightthickness=0)
-tomato_image = PhotoImage(file='/home/k/Desktop/Python_projects/Python projects/pomodoro/tomato.png')
+tomato_image = PhotoImage(file='/home/k/Desktop/py_projects/Backend/pomodoro/tomato.png')
 canvas.create_image(100, 112, image=tomato_image)
 timer_text = canvas.create_text(100, 140, text="00:00", fill="white", font=(FONT_NAME, 30, "bold"))
 canvas.grid(column=2, row=2)
